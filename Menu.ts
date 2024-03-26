@@ -1,14 +1,23 @@
 import leia = require('readline-sync');
 import { colors } from './src/util/Colors';
+import { Conta } from './src/model/Conta';
 
 export function main() {
 
     let opcao: number;
 
+    let c1: Conta = new Conta(123, 12, 2,"Lucas Ramires", 100000);
+    c1.visualizar();
+
+    c1.sacar(20000000);
+    c1.visualizar();
+    c1.depositar(50000)
+    c1.visualizar();
+    
     while (true) {
 
         console.log(colors.bg.black, colors.fg.cyanstrong,
-                    "****************************************************\n");
+                    "******************************************************\n");
         console.log("                BANCO DO BRAZIL COM Z\n               ");
         console.log("******************************************************\n");
         console.log(" 1 - Criar Conta ");
@@ -78,7 +87,6 @@ export function sobre(): void{
     console.log("                                                       ",
     colors.reset);
 }
-//commit 111
     main();
 
 
