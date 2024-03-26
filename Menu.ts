@@ -1,4 +1,5 @@
 import leia = require('readline-sync');
+import { colors } from './src/util/Colors';
 
 export function main() {
 
@@ -6,7 +7,8 @@ export function main() {
 
     while (true) {
 
-        console.log("\n****************************************************\n");
+        console.log(colors.bg.black, colors.fg.cyanstrong,
+                    "****************************************************\n");
         console.log("                BANCO DO BRAZIL COM Z\n               ");
         console.log("******************************************************\n");
         console.log(" 1 - Criar Conta ");
@@ -18,7 +20,8 @@ export function main() {
         console.log(" 7 - Depositar");
         console.log(" 8 - Transferir valores entre Contas");
         console.log(" 9 - Sair \n");
-        console.log("*******************************************************\n");
+        console.log("*******************************************************",
+        colors.reset);    
 
         console.log("Entre com a opcao desejada: \n");
         opcao = leia.questionInt("");
@@ -65,11 +68,15 @@ export function main() {
 }
 
 export function sobre(): void{
-    console.log("*******************************************************")
+    console.log(colors.bg.black, colors.fg.greenstrong,
+                "                                                       ");
+    console.log("*******************************************************");
     console.log("Projeto Desenvolvidor por: Lucas Ramires");
     console.log("E-mail: kotecbr@outlook.com");
     console.log("https://github.com/Lucas-Ramires");
     console.log("*******************************************************")
+    console.log("                                                       ",
+    colors.reset);
 }
 
     main();
