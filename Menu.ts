@@ -1,6 +1,9 @@
 import leia = require('readline-sync');
 import { colors } from './src/util/Colors';
 import { Conta } from './src/model/Conta';
+import { ContaCorrente } from './src/model/ContaCorrente';
+import { ContaPoupança } from './src/model/ContaPoupança';
+
 
 export function main() {
 
@@ -8,12 +11,22 @@ export function main() {
 
     let c1: Conta = new Conta(123, 12, 2,"Lucas Ramires", 100000);
     c1.visualizar();
-
     c1.sacar(20000000);
     c1.visualizar();
     c1.depositar(50000)
     c1.visualizar();
     
+    const cc1: ContaCorrente = new ContaCorrente(2, 456, 1, "Yasmine", 500000, 1000);
+    cc1.visualizar();
+    cc1.sacar(1000);
+    cc1.visualizar();
+    cc1.depositar(5000);
+    cc1.visualizar();
+
+    const ccc1: ContaPoupança = new ContaPoupança(2, 456, 1, "Luis", 5000,12);
+    ccc1.visualizar();
+    
+
     while (true) {
 
         console.log(colors.bg.black, colors.fg.cyanstrong,
@@ -43,40 +56,55 @@ export function main() {
 
         switch (opcao) {
             case 1:
-                console.log("\nCriar Conta!")
+                console.log(colors.fg.whitestrong, "\n\nCriar Conta\n\n", colors.reset);
+                
+                keyPress()
                 break;
             case 2:
-                console.log("\nListar Todas as Contas")
+                console.log(colors.fg.whitestrong, "\n\nListar todas as Contas\n\n", colors.reset);
+
+                keyPress()
                 break;
             case 3:
-                console.log("\nBuscar Conta por Numero")
+                console.log(colors.fg.whitestrong, "\n\nConsultar dados da Conta - por número\n\n", colors.reset);
+
+                keyPress()
                 break;
             case 4:
-                console.log("\nAtualizar Dados da Conta")
+                console.log(colors.fg.whitestrong, "\n\nAtualizar dados da Conta\n\n", colors.reset);
+
+                keyPress()
                 break;
             case 5:
-                console.log("\nApagar Conta")
+                console.log(colors.fg.whitestrong, "\n\nApagar uma Conta\n\n", colors.reset);
+
+                keyPress()
                 break;
             case 6:
-                console.log("\nSacar")
+                console.log(colors.fg.whitestrong, "\n\nSaque\n\n", colors.reset);
+
+                keyPress()
                 break;
             case 7:
-                console.log("\nDepositar")
+                console.log(colors.fg.whitestrong, "\n\nDepósito\n\n", colors.reset);
+
+                keyPress()
                 break;
             case 8:
-                console.log("\nTransferir valores entre Contas")
-                break;
-            case 9:
-                console.log("\nBanco do Brazil com Z - O seu futuro começa aqui!");
+                console.log(colors.fg.whitestrong, "\n\nTransferência entre Contas\n\n", colors.reset);
+
+                keyPress()
                 break;
             default:
-                console.log("\nDigite uma entre as nove opcoes!:")
+                console.log(colors.fg.whitestrong, "\nOpção Inválida!\n", colors.reset);
+
+                keyPress()
                 break;
         }
     }
 }
 
-export function sobre(): void{
+function sobre(): void{
     console.log(colors.bg.black, colors.fg.greenstrong,
                 "                                                       ");
     console.log("*******************************************************");
@@ -86,6 +114,11 @@ export function sobre(): void{
     console.log("*******************************************************")
     console.log("                                                       ",
     colors.reset);
+}
+function keyPress(): void{
+    console.log(colors.reset, "");
+    console.log("\nPressione enter para continuar...");
+    leia.prompt();
 }
     main();
 
