@@ -9,12 +9,12 @@ export function main() {
 
     let opcao: number;
 
-    let c1: Conta = new Conta(123, 12, 2,"Lucas Ramires", 100000);
-    c1.visualizar();
-    c1.sacar(20000000);
-    c1.visualizar();
-    c1.depositar(50000)
-    c1.visualizar();
+    // let c1: Conta = new Conta(123, 12, 2,"Lucas Ramires", 100000);
+    // c1.visualizar();
+    // c1.sacar(20000000);
+    // c1.visualizar();
+    // c1.depositar(50000)
+    // c1.visualizar();
     
     const cc1: ContaCorrente = new ContaCorrente(2, 456, 1, "Yasmine", 500000, 1000);
     cc1.visualizar();
