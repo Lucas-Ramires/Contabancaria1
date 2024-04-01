@@ -3,28 +3,34 @@ import { colors } from './src/util/Colors';
 import { Conta } from './src/model/Conta';
 import { ContaCorrente } from './src/model/ContaCorrente';
 import { ContaPoupança } from './src/model/ContaPoupança';
+import { ContaController } from './src/controller/ContaController';
 
 
 export function main() {
 
     let opcao: number;
 
-    let c1: Conta = new Conta(123, 12, 2,"Lucas Ramires", 100000);
-    c1.visualizar();
-    c1.sacar(20000000);
-    c1.visualizar();
-    c1.depositar(50000)
-    c1.visualizar();
-    
-    const cc1: ContaCorrente = new ContaCorrente(2, 456, 1, "Yasmine", 500000, 1000);
-    cc1.visualizar();
-    cc1.sacar(1000);
-    cc1.visualizar();
-    cc1.depositar(5000);
-    cc1.visualizar();
+    let contas: ContaController = new ContaController();
 
-    const ccc1: ContaPoupança = new ContaPoupança(2, 456, 1, "Luis", 5000,12);
-    ccc1.visualizar();
+    let cc1: ContaCorrente = new ContaCorrente(2, 456, 1, "Lucasr", 10000, 1000);
+    contas.cadastrar(cc1);
+
+    // let c1: Conta = new Conta(123, 12, 2,"Lucas Ramires", 100000);
+    // c1.visualizar();
+    // c1.sacar(20000000);
+    // c1.visualizar();
+    // c1.depositar(50000)
+    // c1.visualizar();
+    
+    // const cc1: ContaCorrente = new ContaCorrente(2, 456, 1, "Yasmine", 500000, 1000);
+    // cc1.visualizar();
+    // cc1.sacar(1000);
+    // cc1.visualizar();
+    // cc1.depositar(5000);
+    // cc1.visualizar();
+
+    // const ccc1: ContaPoupança = new ContaPoupança(2, 456, 1, "Luis", 5000,12);
+    // ccc1.visualizar();
     
 
     while (true) {
@@ -62,7 +68,7 @@ export function main() {
                 break;
             case 2:
                 console.log(colors.fg.whitestrong, "\n\nListar todas as Contas\n\n", colors.reset);
-
+                contas.listarTodas();
                 keyPress()
                 break;
             case 3:
