@@ -4,16 +4,24 @@ import { Conta } from './src/model/Conta';
 import { ContaCorrente } from './src/model/ContaCorrente';
 import { ContaPoupança } from './src/model/ContaPoupança';
 import { ContaController } from './src/controller/ContaController';
+import { readlinkSync } from 'fs';
 
 
 export function main() {
 
-    let opcao: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let titular: string;
+    const tipoContas = ['Conta Corrente','Conta Poupanca'];
 
+    //instancia da classe contacontroller
     let contas: ContaController = new ContaController();
 
-    let cc1: ContaCorrente = new ContaCorrente(2, 456, 1, "Lucasr", 10000, 1000);
+
+    const cc1: ContaCorrente = new ContaCorrente(contas.gerarNumero(), 456, 1, "Lucasr", 10000, 1000);
     contas.cadastrar(cc1);
+
+    const cc2: ContaPoupança = new ContaPoupança(contas.gerarNumero(), 456, 1, "Pamela", 30000, 1000);
+    contas.cadastrar(cc2);
 
     // let c1: Conta = new Conta(123, 12, 2,"Lucas Ramires", 100000);
     // c1.visualizar();
@@ -63,7 +71,37 @@ export function main() {
         switch (opcao) {
             case 1:
                 console.log(colors.fg.whitestrong, "\n\nCriar Conta\n\n", colors.reset);
-                
+
+                console.log("Digite o Numero da agencia: ")
+                agencia = leia.questionInt("")
+
+                console.log("Digite o Nome do Titular: ")
+                titular = leia.question("")
+
+                console.log("Informe o tipo da Conta: ")
+                tipo = leia.keyInSelect(tipoContas, "", {cancel: false}) + 1
+
+                console.log("Digite o saldo da conta: ")
+                saldo = leia.questionFloat("")
+
+                switch(tipo){
+                    case 1:
+                        console.log("Digite o limite da conta: ")
+                        limite = leia.questionFloat("")
+                        contas.cadastrar(
+                            new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite)
+                        )
+                    break;
+                    case 2:
+                        console.log("Digite o dia do aniversario da conta: ")
+                        aniversario = leia.questionInt("")
+                        contas.cadastrar(
+                            new ContaPoupança(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario)
+                        )
+                        break;
+
+                }
+
                 keyPress()
                 break;
             case 2:
@@ -74,15 +112,65 @@ export function main() {
             case 3:
                 console.log(colors.fg.whitestrong, "\n\nConsultar dados da Conta - por número\n\n", colors.reset);
 
+                console.log("Digite o Numero da conta: ")
+                numero = leia.questionInt("")
+                contas.procurarPorNumero(numero);
+
                 keyPress()
                 break;
             case 4:
                 console.log(colors.fg.whitestrong, "\n\nAtualizar dados da Conta\n\n", colors.reset);
+               
+                console.log("Digite o Numero da conta: ")
+                numero = leia.questionInt("")
+
+                let conta = contas.buscarNoArray(numero)
+
+                if(conta !== null){
+                console.log(colors.fg.whitestrong, "\n\nCriar Conta\n\n", colors.reset);
+
+                console.log("Digite o Numero da agencia: ")
+                agencia = leia.questionInt("")
+
+                console.log("Digite o Nome do Titular: ")
+                titular = leia.question("")
+
+                tipo = conta.tipo
+
+                console.log("Digite o saldo da conta: ")
+                saldo = leia.questionFloat("")
+
+                switch(tipo){
+                    case 1:
+                        console.log("Digite o limite da conta: ")
+                        limite = leia.questionFloat("")
+                        contas.atualizar(
+                            new ContaCorrente(numero, agencia, tipo, titular, saldo, limite)
+                        )
+                    break;
+                    case 2:
+                        console.log("Digite o dia do aniversario da conta: ")
+                        aniversario = leia.questionInt("")
+                        contas.cadastrar(
+                            new ContaPoupança(numero, agencia, tipo, titular, saldo, aniversario)
+                        )
+                        break;
+                }
+
+                }else{
+                    console.log("A conta nao foi encontrada!")
+                }
+
 
                 keyPress()
                 break;
             case 5:
                 console.log(colors.fg.whitestrong, "\n\nApagar uma Conta\n\n", colors.reset);
+
+                console.log("Digite o Numero da conta: ")
+                numero = leia.questionInt("")
+                contas.deletar(numero);
+
 
                 keyPress()
                 break;
