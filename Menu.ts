@@ -9,7 +9,7 @@ import { readlinkSync } from 'fs';
 
 export function main() {
 
-    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario, valor, numeroDestino: number;
     let titular: string;
     const tipoContas = ['Conta Corrente','Conta Poupanca'];
 
@@ -177,16 +177,37 @@ export function main() {
             case 6:
                 console.log(colors.fg.whitestrong, "\n\nSaque\n\n", colors.reset);
 
+                console.log("Digite o numero da conta: ")
+                numero = leia.questionInt("");
+
+                console.log("Digite o valor do Saque: ")
+                valor = leia.questionFloat("");
+
+                contas.sacar(numero, valor);
+
                 keyPress()
                 break;
             case 7:
                 console.log(colors.fg.whitestrong, "\n\nDepósito\n\n", colors.reset);
+                console.log("Digite o numero da conta: ")
+                numero = leia.questionInt("");
 
+                console.log("Digite o valor do Saque: ")
+                valor = leia.questionFloat("");
+
+                contas.depositar(numero, valor);
                 keyPress()
                 break;
             case 8:
                 console.log(colors.fg.whitestrong, "\n\nTransferência entre Contas\n\n", colors.reset);
+                console.log("Digite o numero da conta que ira transferir o valor: ")
+                numero = leia.questionInt("")
+                console.log("Digite a conta que irá receber o valor")
+                numeroDestino = leia.questionFloat("")
+                console.log("Digite o valor que irá transferir: ")
+                valor = leia.questionFloat("")
 
+                contas.transferir(numero, numeroDestino, valor);
                 keyPress()
                 break;
             default:
@@ -215,6 +236,5 @@ function keyPress(): void{
     leia.prompt();
 }
     main();
-
 
 
