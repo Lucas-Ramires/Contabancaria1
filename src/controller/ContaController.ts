@@ -2,14 +2,22 @@ import { Conta } from "../model/Conta";
 import { ContaRepository } from "../repository/ContaRepository";
 
 export class ContaController implements ContaRepository {
+    procurarPorTitular(titular: string) {
+        let listaContasPorTitular = this.listaContas.filter(c =>
+            c.titular.toUpperCase().includes(titular.toUpperCase()))
+
+        for (let conta of listaContasPorTitular) {
+            conta.visualizar();
+        }
+    }
     private listaContas: Array<Conta> = new Array<Conta>();
 
     numero: number = 0;
 
     procurarPorNumero(numero: number): void {
         let buscaConta = this.buscarNoArray(numero);
-        if(buscaConta !== null)
-        buscaConta.visualizar()
+        if (buscaConta !== null)
+            buscaConta.visualizar()
         else
             console.log("Conta não encontrada!")
     }
@@ -25,49 +33,49 @@ export class ContaController implements ContaRepository {
     }
     atualizar(conta: Conta): void {
         let buscaConta = this.buscarNoArray(conta.numero);
-        if(buscaConta !== null){
-        this.listaContas[this.listaContas.indexOf(buscaConta)] = conta;    
-        console.log(`A conta ${conta.numero} foi atualizada com sucesso`)
-        }else
+        if (buscaConta !== null) {
+            this.listaContas[this.listaContas.indexOf(buscaConta)] = conta;
+            console.log(`A conta ${conta.numero} foi atualizada com sucesso`)
+        } else
             console.log("Conta não encontrada!")
     }
     deletar(numero: number): void {
         let buscaConta = this.buscarNoArray(numero);
-        if(buscaConta !== null){
-        this.listaContas.splice(this.listaContas.indexOf(buscaConta), 1)
-        console.log(`A conta ${numero} foi excluida com sucesso`)
-        }else
+        if (buscaConta !== null) {
+            this.listaContas.splice(this.listaContas.indexOf(buscaConta), 1)
+            console.log(`A conta ${numero} foi excluida com sucesso`)
+        } else
             console.log("Conta não encontrada!")
     }
     sacar(numero: number, valor: number): void {
         let conta = this.buscarNoArray(numero);
-        if(conta != null){
+        if (conta != null) {
             //o if aqui é porque ele verifica se tem o saldo, ja o depositar nao precisa pq só adiciona no saldo
-            if(conta.sacar(valor) == true)
-            console.log(`O Saque na conta numero ${numero} foi efetuado com sucesso!`);
-            }else
-                console.log(`A conta ${numero} não encontrada!`)
-        
-        
+            if (conta.sacar(valor) == true)
+                console.log(`O Saque na conta numero ${numero} foi efetuado com sucesso!`);
+        } else
+            console.log(`A conta ${numero} não encontrada!`)
+
+
     }
     depositar(numero: number, valor: number): void {
         let conta = this.buscarNoArray(numero);
-        if(conta != null){
+        if (conta != null) {
             conta.depositar(valor);
             console.log(`O deposito na conta numero ${numero} foi efetuado com sucesso!`);
-            }else
-                console.log(`A conta ${numero} não encontrada!`)
+        } else
+            console.log(`A conta ${numero} não encontrada!`)
     }
     transferir(numeroOrigem: number, numeroDestino: number, valor: number): void {
         let contaOrigem = this.buscarNoArray(numeroOrigem)
         let contaDestino = this.buscarNoArray(numeroDestino)
 
-        if(contaOrigem != null && contaDestino != null ){
-            if(contaOrigem.sacar(valor) == true){
+        if (contaOrigem != null && contaDestino != null) {
+            if (contaOrigem.sacar(valor) == true) {
                 contaDestino.depositar(valor);
                 console.log(`A transferencia da conta ${numeroOrigem} para ${numeroDestino} foi realizada com sucesso!`)
             }
-        }else
+        } else
             console.log(`A conta ${numeroOrigem} ou Conta numero ${numeroOrigem} nao foram encontradas!`)
 
     }

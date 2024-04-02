@@ -20,25 +20,10 @@ export function main() {
     const cc1: ContaCorrente = new ContaCorrente(contas.gerarNumero(), 456, 1, "Lucasr", 10000, 1000);
     contas.cadastrar(cc1);
 
-    const cc2: ContaPoupança = new ContaPoupança(contas.gerarNumero(), 456, 1, "Pamela", 30000, 1000);
+    const cc2: ContaPoupança = new ContaPoupança(contas.gerarNumero(), 456, 1, "Pamela", 30000, 10);
     contas.cadastrar(cc2);
 
-    // let c1: Conta = new Conta(123, 12, 2,"Lucas Ramires", 100000);
-    // c1.visualizar();
-    // c1.sacar(20000000);
-    // c1.visualizar();
-    // c1.depositar(50000)
-    // c1.visualizar();
-    
-    // const cc1: ContaCorrente = new ContaCorrente(2, 456, 1, "Yasmine", 500000, 1000);
-    // cc1.visualizar();
-    // cc1.sacar(1000);
-    // cc1.visualizar();
-    // cc1.depositar(5000);
-    // cc1.visualizar();
 
-    // const ccc1: ContaPoupança = new ContaPoupança(2, 456, 1, "Luis", 5000,12);
-    // ccc1.visualizar();
     
 
     while (true) {
@@ -55,14 +40,15 @@ export function main() {
         console.log(" 6 - Sacar");
         console.log(" 7 - Depositar");
         console.log(" 8 - Transferir valores entre Contas");
-        console.log(" 9 - Sair \n");
+        console.log(" 9 - Buscar conta pelo nome do titular ");
+        console.log(" 0 - Sair \n");
         console.log("*******************************************************",
         colors.reset);    
 
         console.log("Entre com a opcao desejada: \n");
         opcao = leia.questionInt("");
 
-        if (opcao == 9) {
+        if (opcao == 0) {
             console.log("\nBanco do Brazil com Z - O seu Futuro começa aqui!\n");
             sobre();
             process.exit(0)
@@ -209,6 +195,17 @@ export function main() {
 
                 contas.transferir(numero, numeroDestino, valor);
                 keyPress()
+                break;
+                case 9: 
+                console.log(colors.fg.whitestrong,
+                    "\n\nConsultar conta por titular\n\n", colors.reset);
+
+                    console.log("Digite o Nome do Titular: ")
+                    titular = leia.question("")
+
+                    contas.procurarPorTitular(titular);
+
+                    keyPress();
                 break;
             default:
                 console.log(colors.fg.whitestrong, "\nOpção Inválida!\n", colors.reset);
